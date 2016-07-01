@@ -9,20 +9,49 @@ import java.util.HashMap;
 public class DbManager {
 	private final DbDao dbDao = DbDao.getInstance();
 	private Connection c = null;
-
+	private String dbname = null;
+	private int count = 0;
 	public DbManager(Connection c) {
 		this.c = c;
 	}
 	public DbManager(String dbname) {
+		this.dbname = dbname;
 		c = dbDao.getConnection(dbname,false);
 	}
+
+	/*
+	 * 为了解决内存泄漏问题
+	 */
+	public void updateConnection() {
+		if (c == null)
+			return;
+		try {
+			c.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		c = dbDao.getConnection(dbname, false);
+
+	}
+
+	private void checkConnection() {
+		count++;
+		if (count > 2000) {
+			updateConnection();
+			count = 0;
+		}
+	}
 	public ArrayList<HashMap> getData(String sql) {
+		checkConnection();
 		return dbDao.resultSetToList(dbDao.executeQuery(sql, c));
 	}
 	public ArrayList<HashMap<String,String>> getDataByString(String sql) {
+		checkConnection();
 		return dbDao.resultSetToListByString((dbDao.executeQuery(sql, c)));
 	}
 	public boolean execute(String sql){
+		checkConnection();
 		try {
 			c.setAutoCommit(true);
 		} catch (SQLException e) {
@@ -33,6 +62,8 @@ public class DbManager {
 	}
 	public ArrayList<String> updateData(String sql,
 			ArrayList<HashMap<Integer, String>> parameter) {
+
+		checkConnection();
 		PreparedStatement mypreparestatement = dbDao.getPreparedStatement(sql, c);
 		HashMap<Integer, String> oneUpdate = new HashMap<Integer, String>();
 		ArrayList<String> executeResults = new ArrayList<String>();
@@ -76,6 +107,7 @@ public class DbManager {
 	}
 	public ArrayList<String> updateData(int[] type ,String sql,
 			ArrayList<HashMap<Integer, String>> parameter) {
+		checkConnection();
 		PreparedStatement mypreparestatement = dbDao.getPreparedStatement(sql, c);
 		HashMap<Integer, String> oneUpdate = new HashMap<Integer, String>();
 		ArrayList<String> executeResults = new ArrayList<String>();
