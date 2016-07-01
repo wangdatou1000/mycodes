@@ -9,10 +9,10 @@ import DbBeans.DbManager;
 public class LogicPublic {
 	public static LogicPublic instance = new LogicPublic();
 	public String comma = ",\n";
-	public DbManager dberp = new DbManager(DbInfo.dbinfo.ERP);
-	public DbManager dbkm = new DbManager(DbInfo.dbinfo.KM);
-	public DbManager dbmcs = new DbManager(DbInfo.dbinfo.MCS);
-	public DbManager dbsc = new DbManager(DbInfo.dbinfo.SC);
+	// public DbManager dberp = new DbManager(DbInfo.dbinfo.ERP);
+	// public DbManager dbkm = new DbManager(DbInfo.dbinfo.KM);
+	// public DbManager dbmcs = new DbManager(DbInfo.dbinfo.MCS);
+	// public DbManager dbsc = new DbManager(DbInfo.dbinfo.SC);
 	public DbManager dbmd = new DbManager(DbInfo.dbinfo.MYCODES);
 	public String lable = "@datou@";
 	public String XmlExtendName = ".xml";

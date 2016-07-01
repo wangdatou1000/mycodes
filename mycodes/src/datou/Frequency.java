@@ -18,8 +18,9 @@ public class Frequency {
 		// f.getRedTimes();// 统计各个红球出现的次数并排序；
 		// System.out.println("统计各个篮球出现的次数并排序");
 		// f.getBlueTimes();// 统计各个篮球出现的次数并排序；
-		f.getBlueMissInfo();
-		f.getRedMissInfo();
+		f.testlink();
+		// f.getBlueMissInfo();
+		// f.getRedMissInfo();
 	}
 
 	private final String FSQL = "select count(*) as times from mycodes.oldcodes "
@@ -29,7 +30,7 @@ public class Frequency {
 	private final String FSQL3 = "select count(*) as times from mycodes.oldcodes ";
 
 	private final String MISSSQL = "select * from mycodes.oldcodes order by number";
-
+	private final String TESTSQL = "select * from user ";
 	public void getRedTimes() {
 		String sql = "";
 		int[] sortTimes = new int[10000];
@@ -76,6 +77,12 @@ public class Frequency {
 		}
 	}
 
+	public void testlink() {
+		ArrayList<HashMap<String, String>> missInfo = LogicPublic.instance.dbmd.getDataByString(TESTSQL);
+		for (HashMap<String, String> one : missInfo) {
+			System.out.println(one.get("user_name"));
+		}
+	}
 	public void getBlueMissInfo() {
 		ArrayList<HashMap<String, String>> missInfo = LogicPublic.instance.dbmd
 				.getDataByString(MISSSQL);

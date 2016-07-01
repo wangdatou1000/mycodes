@@ -18,9 +18,9 @@ public class DbInfo {
 
 	// ˫ɫ����Ŀ���ݿ�
 	public final String MYCODES = "MYCODES";
-	final String MDPWD = "datou";
-	final String MDURL = "jdbc:mysql://localhost:3306/mycodes";
-	final String MDUSER = "datou";
+	final String MDPWD = "2837298";
+	final String MDURL = "jdbc:mysql://localhost:3306/study_spring?useSSL=false";
+	final String MDUSER = "root";
 	// ERP��ʽ���ݿ�
 	final String ERPUrl = "jdbc:oracle:thin:@172.16.10.13:1521:erp2";
 	final String ERPUser = "ncv502";
